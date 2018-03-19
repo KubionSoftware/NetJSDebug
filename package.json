@@ -1,7 +1,7 @@
 {
 	"name": "netjs-debug",
 	"displayName": "NetJS Debug",
-	"version": "0.1.0",
+	"version": "0.5.0",
 	"publisher": "boukestam",
 	"description": "Extension to debug NetJS applications",
 	"author": {
@@ -9,7 +9,7 @@
 		"email": "bouke.stam@kubion.nl"
 	},
 	"keywords": [
-		"multi-root ready"
+		"netjs debug extension"
 	],
 	"engines": {
 		"vscode": "^1.17.0",
@@ -19,7 +19,11 @@
 	"categories": [
 		"Debuggers"
 	],
-	"private": true,
+	"private": false,
+	"repository": {
+        "type": "git",
+        "url": "https://github.com/KubionSoftware/NetJSDebug.git"
+    },
 	"dependencies": {
 		"vscode-debugadapter": "^1.25.0-pre.0",
 		"vscode-debugprotocol": "^1.25.0-pre.0",
@@ -68,7 +72,7 @@
 						"properties": {
 							"program": {
 								"type": "string",
-								"description": "Url of iis environment.",
+								"description": "Url of NetJS environment.",
 								"default": "ws://localhost:53192"
 							},
 							"stopOnEntry": {
