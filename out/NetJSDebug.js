@@ -145,16 +145,16 @@ class NetJSDebugSession extends vscode_debugadapter_1.LoggingDebugSession {
         this._runtime.continue();
         this.sendResponse(response);
     }
-    reverseContinueRequest(response, args) {
-        this._runtime.continue(true);
-        this.sendResponse(response);
-    }
     nextRequest(response, args) {
-        this._runtime.step();
+        this._runtime.stepOver();
         this.sendResponse(response);
     }
-    stepBackRequest(response, args) {
-        this._runtime.step(true);
+    stepInRequest(response, args) {
+        this._runtime.stepInto();
+        this.sendResponse(response);
+    }
+    stepOutRequest(response, args) {
+        this._runtime.stepOut();
         this.sendResponse(response);
     }
     shutdown() {

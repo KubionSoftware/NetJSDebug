@@ -60,10 +60,12 @@ export class NetJSRuntime extends EventEmitter {
 				if(data.event == "breakpointValidated"){
 					runtime.sendEvent(data.event, <NetJSBreakpoint> {verified: data.breakpoint.verified, line: data.breakpoint.line, id: data.breakpoint.id});
 				}else{
-					runtime._stack = data.stack.map(s => {
+					data.stack.frames = data.stack.frames.map(s => {
 						s.file = localRoot + "/" + s.file;
 						return s;
 					});
+
+					runtime._stack = data.stack;
 					runtime._scopes = data.scopes;
 					runtime.sendEvent(data.event);
 				}
@@ -97,13 +99,21 @@ export class NetJSRuntime extends EventEmitter {
 		});
 	}
 
-	/**
-	 * Step to the next/previous non empty line.
-	 */
-	public step(reverse = false) {
+	public stepInto() {
 		this.send({
-			command: "step",
-			reverse: reverse
+			command: "stepInto"
+		});
+	}
+
+	public stepOut() {
+		this.send({
+			command: "stepOut"
+		});
+	}
+
+	public stepOver() {
+		this.send({
+			command: "stepOver"
 		});
 	}
 

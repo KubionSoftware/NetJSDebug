@@ -37,10 +37,11 @@ class NetJSRuntime extends events_1.EventEmitter {
                     runtime.sendEvent(data.event, { verified: data.breakpoint.verified, line: data.breakpoint.line, id: data.breakpoint.id });
                 }
                 else {
-                    runtime._stack = data.stack.map(s => {
+                    data.stack.frames = data.stack.frames.map(s => {
                         s.file = localRoot + "/" + s.file;
                         return s;
                     });
+                    runtime._stack = data.stack;
                     runtime._scopes = data.scopes;
                     runtime.sendEvent(data.event);
                 }
@@ -71,13 +72,19 @@ class NetJSRuntime extends events_1.EventEmitter {
             reverse: reverse
         });
     }
-    /**
-     * Step to the next/previous non empty line.
-     */
-    step(reverse = false) {
+    stepInto() {
         this.send({
-            command: "step",
-            reverse: reverse
+            command: "stepInto"
+        });
+    }
+    stepOut() {
+        this.send({
+            command: "stepOut"
+        });
+    }
+    stepOver() {
+        this.send({
+            command: "stepOver"
         });
     }
     /**
