@@ -186,14 +186,13 @@ class NetJSDebugSession extends LoggingDebugSession {
 			const data = this._runtime.variables(id);
 
 			for(var key in data){
-				var value = data[key].toString();
-				if(typeof data[key] == "object"){
-					value = JSON.stringify(data[key]);
-				}
+				var dataValue = data[key];
+				var type = typeof dataValue;
+				var value = dataValue ? (type == "object" ? JSON.stringify(dataValue) : dataValue.toString()) : "null";
 
 				variables.push({
 					name: key,
-					type: typeof data[key],
+					type: type,
 					value: value,
 					variablesReference: 0
 				});
